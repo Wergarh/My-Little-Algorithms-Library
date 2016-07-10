@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -68,9 +70,19 @@ int **createMatrix(const unsigned rows, const unsigned cols) {
     return arr;
 }
 
+/*Заполняет матрицу случайными числами, требуется cstdlib и ctime*/
+void setMatrix(int **m, const unsigned rows, const unsigned cols) {
+    srand(time(NULL)); //передаем функция time() с параметром NULL
+    for (size_t i = 0; i < rows; i++) {
+        for(size_t j = 0; j < cols; j++) {
+            m[i][j] = (rand() / 1000);
+        }
+    }
+}
+
 /*Печать матрицы размера rows x cols*/
 void printArr(const int * const * m, unsigned rows, unsigned cols) {
-        for (size_t i = 0; i < rows; i++) {
+    for (size_t i = 0; i < rows; i++) {
         for(size_t j = 0; j < cols; j++) {
             cout << m[i][j] << ' ';
         }
@@ -90,6 +102,26 @@ int ** transpose(const int * const * m, unsigned rows, unsigned cols)
     }
     
     return a;
+}
+
+/*Находит минимальный элемент матрицы и меняет строку с этим элементом с первой*/
+void swap_min(int *m[], int rows, int cols)
+{
+    int min = m[0][0], cMin = 0;
+    int *p1 = *m, *p2 = *(m+1);
+
+    
+    for (int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            if(m[i][j] < min) {
+                min = m[i][j];
+                p2 = *(m+i);
+                cMin = i;
+            }
+        }
+    }
+    *(m+cMin) = p1;
+    *m = p2;
 }
 
 #endif //ARRAY_H
