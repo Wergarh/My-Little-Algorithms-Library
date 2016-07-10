@@ -1,4 +1,8 @@
+#ifndef ARRAY_H
+#define ARRAY_H
+
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -53,3 +57,39 @@ void shiftLeft(int *arr, const int sz, const int k) {
         oneShiftLeft(arr, sz);
     }
 }
+
+/*Создает матрицу размера rows x cols*/
+int **createMatrix(const unsigned rows, const unsigned cols) {
+    int **arr = new int *[rows];
+    for (size_t i = 0; i < rows; i++) {
+        arr[i] = new int[cols];
+    }
+    
+    return arr;
+}
+
+/*Печать матрицы размера rows x cols*/
+void printArr(const int * const * m, unsigned rows, unsigned cols) {
+        for (size_t i = 0; i < rows; i++) {
+        for(size_t j = 0; j < cols; j++) {
+            cout << m[i][j] << ' ';
+        }
+        cout << endl;
+    }
+}
+
+/*Транспонирует матрицу размера rows × cols в матрицу размера cols x rows*/
+int ** transpose(const int * const * m, unsigned rows, unsigned cols)
+{
+    int **a = createMatrix(cols, rows);
+    
+    for (size_t i = 0; i < cols; i++) {
+        for(size_t j = 0; j < rows; j++) {
+            a[i][j] = m[j][i];
+        }
+    }
+    
+    return a;
+}
+
+#endif //ARRAY_H
